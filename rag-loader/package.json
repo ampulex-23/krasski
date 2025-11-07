@@ -1,0 +1,32 @@
+{
+  "name": "krasski-rag-loader",
+  "version": "1.0.0",
+  "description": "CLI tool to load KRASSKI knowledge base into vector database",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "load": "node src/index.js load",
+    "update": "node src/index.js update",
+    "clear": "node src/index.js clear",
+    "test": "node src/index.js test"
+  },
+  "keywords": [
+    "rag",
+    "vector-db",
+    "embeddings",
+    "krasski"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@pinecone-database/pinecone": "^2.2.2",
+    "dotenv": "^16.4.5",
+    "langchain": "^0.2.0",
+    "@langchain/openai": "^0.2.0",
+    "@langchain/pinecone": "^0.0.5",
+    "@langchain/community": "^0.2.0",
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  }
+}
