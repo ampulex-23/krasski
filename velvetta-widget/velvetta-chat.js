@@ -1080,7 +1080,16 @@
   window.VelvettaChat = VelvettaChat;
 
   // Auto-init if config is present
-  if (window.VelvettaChatConfig) {
-    window.velvettaChat = new VelvettaChat(window.VelvettaChatConfig);
+  function initVelvetta() {
+    if (window.VelvettaChatConfig) {
+      window.velvettaChat = new VelvettaChat(window.VelvettaChatConfig);
+    }
+  }
+
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initVelvetta);
+  } else {
+    initVelvetta();
   }
 })();
