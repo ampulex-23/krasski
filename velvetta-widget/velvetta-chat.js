@@ -420,6 +420,45 @@
           box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
         }
 
+        /* Quick Reply Buttons */
+        .velvetta-message.bot button.quick-reply {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 18px;
+          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+          color: ${primaryColor};
+          border: 2px solid ${primaryColor}30;
+          border-radius: 25px;
+          font-weight: 600;
+          font-size: 13px;
+          font-family: inherit;
+          cursor: pointer;
+          margin: 4px 6px 4px 0;
+          transition: all 0.3s;
+        }
+
+        .velvetta-message.bot button.quick-reply:hover {
+          background: linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor || primaryColor} 100%);
+          color: white;
+          border-color: transparent;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px ${primaryColor}40;
+        }
+
+        .velvetta-message.bot button.quick-reply:active {
+          transform: translateY(0);
+        }
+
+        .velvetta-message.bot .quick-replies {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 12px;
+          padding-top: 12px;
+          border-top: 1px solid #e2e8f0;
+        }
+
         /* Code */
         .velvetta-message.bot code {
           background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
@@ -824,6 +863,15 @@
       this.elements.input.addEventListener('input', () => {
         this.autoResizeInput();
       });
+
+      // Handle quick reply button clicks
+      this.elements.messages.addEventListener('click', (e) => {
+        const quickReplyBtn = e.target.closest('button.quick-reply');
+        if (quickReplyBtn && !this.isLoading) {
+          const replyText = quickReplyBtn.dataset.reply || quickReplyBtn.textContent.trim();
+          this.sendQuickReply(replyText);
+        }
+      });
     }
 
     autoResizeInput() {
@@ -916,6 +964,26 @@
     scrollToBottom() {
       requestAnimationFrame(() => {
         this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
+      });
+    }
+
+    sendQuickReply(message) {
+      if (!message || this.isLoading) return;
+      
+      // Disable all quick reply buttons in the chat
+      this.disableQuickReplies();
+      
+      // Send the message
+      this.elements.input.value = message;
+      this.sendMessage();
+    }
+
+    disableQuickReplies() {
+      const buttons = this.elements.messages.querySelectorAll('button.quick-reply');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
       });
     }
 
