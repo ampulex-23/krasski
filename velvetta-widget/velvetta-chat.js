@@ -782,11 +782,175 @@
           text-decoration: none;
         }
 
-        @media (max-width: 480px) {
+        /* === MOBILE RESPONSIVE === */
+        @media (max-width: 768px) {
+          .velvetta-widget {
+            bottom: 16px !important;
+            right: 16px !important;
+            left: auto !important;
+            top: auto !important;
+          }
+
+          .velvetta-button {
+            width: 56px;
+            height: 56px;
+          }
+
           .velvetta-chat-window {
-            width: calc(100vw - 40px);
-            height: calc(100vh - 120px);
-            max-height: 500px;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-height: none !important;
+            border-radius: 0 !important;
+            z-index: ${zIndex + 1};
+          }
+
+          .velvetta-header {
+            padding: 16px 20px;
+            padding-top: max(16px, env(safe-area-inset-top));
+          }
+
+          .velvetta-header-title {
+            font-size: 16px;
+          }
+
+          .velvetta-header-subtitle {
+            font-size: 12px;
+          }
+
+          .velvetta-messages {
+            padding: 16px;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+          }
+
+          .velvetta-message {
+            max-width: 85%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border-radius: 16px;
+          }
+
+          .velvetta-message.user {
+            border-bottom-right-radius: 4px;
+          }
+
+          .velvetta-message.bot {
+            border-bottom-left-radius: 4px;
+          }
+
+          /* Адаптивные таблицы */
+          .velvetta-message.bot table {
+            font-size: 12px;
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .velvetta-message.bot th,
+          .velvetta-message.bot td {
+            padding: 8px 10px;
+            white-space: nowrap;
+          }
+
+          /* Адаптивные карточки */
+          .velvetta-message.bot .info-card,
+          .velvetta-message.bot .price-card {
+            padding: 14px;
+            margin: 8px 0;
+          }
+
+          .velvetta-message.bot h3 {
+            font-size: 1.05em;
+            margin-bottom: 12px;
+          }
+
+          .velvetta-message.bot h4 {
+            font-size: 0.95em;
+            margin-top: 12px;
+          }
+
+          /* Адаптивные списки */
+          .velvetta-message.bot ul li,
+          .velvetta-message.bot ol li {
+            padding: 6px 10px 6px 28px;
+            font-size: 14px;
+          }
+
+          .velvetta-message.bot ul li::before {
+            left: 10px;
+          }
+
+          .velvetta-message.bot ol li::before {
+            left: 8px;
+            width: 16px;
+            height: 16px;
+            font-size: 0.8em;
+          }
+
+          /* Адаптивные кнопки */
+          .velvetta-message.bot a.btn {
+            padding: 10px 14px;
+            font-size: 13px;
+            margin: 3px 4px 3px 0;
+          }
+
+          .velvetta-message.bot button.quick-reply {
+            padding: 10px 14px;
+            font-size: 13px;
+            margin: 3px 4px 3px 0;
+          }
+
+          .velvetta-message.bot .quick-replies {
+            gap: 6px;
+            margin-top: 10px;
+            padding-top: 10px;
+          }
+
+          /* Блоки предупреждений */
+          .velvetta-message.bot .warning,
+          .velvetta-message.bot .success {
+            padding: 10px 14px;
+            font-size: 13px;
+          }
+
+          .velvetta-input-area {
+            padding: 12px 16px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            gap: 8px;
+          }
+
+          .velvetta-input {
+            padding: 12px 14px;
+            font-size: 16px; /* Предотвращает зум на iOS */
+            border-radius: 20px;
+          }
+
+          .velvetta-send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+          }
+        }
+
+        /* Очень маленькие экраны */
+        @media (max-width: 380px) {
+          .velvetta-message {
+            max-width: 90%;
+            font-size: 14px;
+          }
+
+          .velvetta-message.bot a.btn,
+          .velvetta-message.bot button.quick-reply {
+            padding: 8px 12px;
+            font-size: 12px;
+          }
+
+          .velvetta-message.bot .quick-replies {
+            gap: 4px;
           }
         }
       `;
