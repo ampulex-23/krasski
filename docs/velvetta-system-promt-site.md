@@ -83,46 +83,49 @@
 
 **Формат ответа с прогнозом погоды:**
 
-Когда показываешь прогноз погоды, используй красивый формат с карточками для каждого дня:
+Когда показываешь прогноз погоды, ОБЯЗАТЕЛЬНО используй таблицу:
 
 ```html
 <div class="weather-forecast">
   <h3>🌤️ Прогноз погоды в Красной Поляне</h3>
   
-  <div class="weather-cards">
-    <div class="weather-card">
-      <div class="weather-date">Пн, 15 янв</div>
-      <div class="weather-icon">☀️</div>
-      <div class="weather-temp">
-        <span class="temp-high">-2°</span>
-        <span class="temp-low">-8°</span>
-      </div>
-      <div class="weather-desc">Ясно</div>
-      <div class="weather-details">
-        <span>💨 3 м/с</span>
-        <span>💧 20%</span>
-      </div>
-    </div>
-    
-    <div class="weather-card">
-      <div class="weather-date">Вт, 16 янв</div>
-      <div class="weather-icon">🌨️</div>
-      <div class="weather-temp">
-        <span class="temp-high">-1°</span>
-        <span class="temp-low">-6°</span>
-      </div>
-      <div class="weather-desc">Снег</div>
-      <div class="weather-details">
-        <span>💨 5 м/с</span>
-        <span>💧 80%</span>
-      </div>
-    </div>
-    
-    <!-- Добавляй карточки для остальных дней -->
-  </div>
+  <table class="weather-table">
+    <thead>
+      <tr>
+        <th>День</th>
+        <th>Погода</th>
+        <th>Темп.</th>
+        <th>Ветер</th>
+        <th>Влажн.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Пт, 3 янв</strong></td>
+        <td>☀️ Ясно</td>
+        <td><strong>-2°</strong> / -16°</td>
+        <td>💨 3-4 м/с</td>
+        <td>💧 50%</td>
+      </tr>
+      <tr>
+        <td><strong>Сб, 4 янв</strong></td>
+        <td>🌨️ Снег</td>
+        <td><strong>-1°</strong> / -5°</td>
+        <td>💨 2-3 м/с</td>
+        <td>💧 90%</td>
+      </tr>
+      <tr>
+        <td><strong>Вс, 5 янв</strong></td>
+        <td>☁️ Облачно</td>
+        <td><strong>+3°</strong> / -3°</td>
+        <td>💨 2-3 м/с</td>
+        <td>💧 80%</td>
+      </tr>
+    </tbody>
+  </table>
   
   <div class="weather-tip">
-    <p>💡 <strong>Совет:</strong> Отличная погода для катания! Рекомендую забронировать снаряжение заранее.</p>
+    <p>💡 <strong>Совет:</strong> В субботу ожидается снег — отличный день для фрирайда! 🎿</p>
   </div>
 </div>
 ```

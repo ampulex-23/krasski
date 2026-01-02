@@ -738,6 +738,38 @@
           color: #92400e;
         }
 
+        .velvetta-message.bot .weather-table {
+          background: white;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+
+        .velvetta-message.bot .weather-table thead {
+          background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+        }
+
+        .velvetta-message.bot .weather-table th {
+          color: white;
+          font-size: 12px;
+          padding: 10px 12px;
+          font-weight: 600;
+        }
+
+        .velvetta-message.bot .weather-table td {
+          padding: 12px;
+          font-size: 13px;
+          border-bottom: 1px solid #e0f2fe;
+          white-space: nowrap;
+        }
+
+        .velvetta-message.bot .weather-table tbody tr:hover td {
+          background: #f0f9ff;
+        }
+
+        .velvetta-message.bot .weather-table tbody tr:last-child td {
+          border-bottom: none;
+        }
+
         /* === END DESIGN SYSTEM === */
 
         .velvetta-message-time {
