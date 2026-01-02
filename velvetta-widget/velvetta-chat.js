@@ -634,6 +634,110 @@
           font-style: italic;
         }
 
+        /* === WEATHER FORECAST STYLES === */
+
+        .velvetta-message.bot .weather-forecast {
+          background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+          border-radius: 16px;
+          padding: 20px;
+          margin: 12px 0;
+          border: 1px solid #7dd3fc;
+        }
+
+        .velvetta-message.bot .weather-forecast h3 {
+          color: #0369a1;
+          margin: 0 0 16px 0;
+          padding-bottom: 12px;
+          border-bottom: 2px solid #7dd3fc;
+        }
+
+        .velvetta-message.bot .weather-cards {
+          display: flex;
+          gap: 10px;
+          overflow-x: auto;
+          padding-bottom: 8px;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .velvetta-message.bot .weather-card {
+          flex: 0 0 auto;
+          min-width: 100px;
+          background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+          border-radius: 12px;
+          padding: 14px 12px;
+          text-align: center;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          border: 1px solid #e0f2fe;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .velvetta-message.bot .weather-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .velvetta-message.bot .weather-date {
+          font-size: 12px;
+          font-weight: 600;
+          color: #0369a1;
+          margin-bottom: 8px;
+        }
+
+        .velvetta-message.bot .weather-icon {
+          font-size: 32px;
+          line-height: 1;
+          margin-bottom: 8px;
+        }
+
+        .velvetta-message.bot .weather-temp {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 6px;
+        }
+
+        .velvetta-message.bot .temp-high {
+          font-size: 18px;
+          font-weight: 700;
+          color: #1e293b;
+        }
+
+        .velvetta-message.bot .temp-low {
+          font-size: 14px;
+          font-weight: 500;
+          color: #64748b;
+          align-self: flex-end;
+        }
+
+        .velvetta-message.bot .weather-desc {
+          font-size: 11px;
+          color: #475569;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+
+        .velvetta-message.bot .weather-details {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          font-size: 10px;
+          color: #64748b;
+        }
+
+        .velvetta-message.bot .weather-tip {
+          background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+          border-radius: 10px;
+          padding: 12px 14px;
+          margin-top: 14px;
+          border: 1px solid #fbbf24;
+        }
+
+        .velvetta-message.bot .weather-tip p {
+          margin: 0;
+          font-size: 13px;
+          color: #92400e;
+        }
+
         /* === END DESIGN SYSTEM === */
 
         .velvetta-message-time {
@@ -915,6 +1019,41 @@
           .velvetta-message.bot .success {
             padding: 10px 14px;
             font-size: 13px;
+          }
+
+          /* Адаптивный прогноз погоды */
+          .velvetta-message.bot .weather-forecast {
+            padding: 14px;
+          }
+
+          .velvetta-message.bot .weather-forecast h3 {
+            font-size: 1em;
+            margin-bottom: 12px;
+          }
+
+          .velvetta-message.bot .weather-card {
+            min-width: 85px;
+            padding: 10px 8px;
+          }
+
+          .velvetta-message.bot .weather-icon {
+            font-size: 26px;
+          }
+
+          .velvetta-message.bot .temp-high {
+            font-size: 16px;
+          }
+
+          .velvetta-message.bot .temp-low {
+            font-size: 12px;
+          }
+
+          .velvetta-message.bot .weather-tip {
+            padding: 10px 12px;
+          }
+
+          .velvetta-message.bot .weather-tip p {
+            font-size: 12px;
           }
 
           .velvetta-input-area {
