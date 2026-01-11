@@ -770,6 +770,66 @@
           border-bottom: none;
         }
 
+        /* === SLOPES CARD STYLES === */
+
+        .velvetta-message.bot .slopes-card {
+          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+          border-radius: 16px;
+          padding: 20px;
+          margin: 12px 0;
+          border: 1px solid #86efac;
+        }
+
+        .velvetta-message.bot .slopes-card h3 {
+          color: #166534;
+          margin: 0 0 12px 0;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #86efac;
+        }
+
+        .velvetta-message.bot .slopes-updated {
+          font-size: 12px;
+          color: #4ade80;
+          margin: 0 0 12px 0;
+        }
+
+        .velvetta-message.bot .slopes-stats {
+          background: white;
+          border-radius: 10px;
+          padding: 12px 16px;
+          margin-bottom: 16px;
+          text-align: center;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .velvetta-message.bot .slopes-count {
+          font-size: 18px;
+          color: #166534;
+        }
+
+        .velvetta-message.bot .slopes-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+
+        .velvetta-message.bot .slope-item {
+          background: white;
+          border-radius: 8px;
+          padding: 6px 12px;
+          font-size: 13px;
+          color: #166534;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .velvetta-message.bot .slopes-note {
+          font-size: 12px;
+          color: #4ade80;
+          margin: 0;
+          font-style: italic;
+        }
+
         /* === END DESIGN SYSTEM === */
 
         .velvetta-message-time {
