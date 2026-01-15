@@ -772,24 +772,42 @@
 
         /* === SLOPES CARD STYLES === */
 
+        /* Base slopes card */
         .velvetta-message.bot .slopes-card {
-          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
           border-radius: 16px;
           padding: 20px;
           margin: 12px 0;
+        }
+
+        /* Красная Поляна theme */
+        .velvetta-message.bot .slopes-card--kp {
+          background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
           border: 1px solid #86efac;
         }
 
-        .velvetta-message.bot .slopes-card h3 {
+        .velvetta-message.bot .slopes-card--kp h3 {
           color: #166534;
           margin: 0 0 12px 0;
           padding-bottom: 10px;
           border-bottom: 2px solid #86efac;
         }
 
+        /* Роза Хутор theme */
+        .velvetta-message.bot .slopes-card--roza {
+          background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+          border: 1px solid #f87171;
+        }
+
+        .velvetta-message.bot .slopes-card--roza h3 {
+          color: #991b1b;
+          margin: 0 0 12px 0;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #f87171;
+        }
+
         .velvetta-message.bot .slopes-updated {
           font-size: 12px;
-          color: #4ade80;
+          color: #6b7280;
           margin: 0 0 12px 0;
         }
 
@@ -807,6 +825,69 @@
           color: #166534;
         }
 
+        /* Summary stats for Roza Khutor */
+        .velvetta-message.bot .slopes-summary {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+
+        .velvetta-message.bot .slopes-stat {
+          background: white;
+          border-radius: 10px;
+          padding: 12px 8px;
+          text-align: center;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .velvetta-message.bot .slopes-stat .stat-number {
+          display: block;
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 1;
+        }
+
+        .velvetta-message.bot .slopes-stat .stat-label {
+          display: block;
+          font-size: 11px;
+          color: #6b7280;
+          margin-top: 4px;
+        }
+
+        .velvetta-message.bot .slopes-stat--open .stat-number { color: #16a34a; }
+        .velvetta-message.bot .slopes-stat--planned .stat-number { color: #eab308; }
+        .velvetta-message.bot .slopes-stat--closed .stat-number { color: #dc2626; }
+        .velvetta-message.bot .slopes-stat--season .stat-number { color: #9ca3af; }
+
+        /* Sections for Roza Khutor */
+        .velvetta-message.bot .slopes-section {
+          margin-bottom: 16px;
+        }
+
+        .velvetta-message.bot .section-title {
+          font-size: 14px;
+          font-weight: 600;
+          margin: 0 0 8px 0;
+          padding: 6px 10px;
+          border-radius: 8px;
+        }
+
+        .velvetta-message.bot .section-title--open {
+          background: #dcfce7;
+          color: #166534;
+        }
+
+        .velvetta-message.bot .section-title--planned {
+          background: #fef9c3;
+          color: #854d0e;
+        }
+
+        .velvetta-message.bot .section-title--closed {
+          background: #fee2e2;
+          color: #991b1b;
+        }
+
         .velvetta-message.bot .slopes-list {
           display: flex;
           flex-wrap: wrap;
@@ -819,13 +900,27 @@
           border-radius: 8px;
           padding: 6px 12px;
           font-size: 13px;
-          color: #166534;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .velvetta-message.bot .slope-item--open {
+          color: #166534;
+          border-left: 3px solid #16a34a;
+        }
+
+        .velvetta-message.bot .slope-item--planned {
+          color: #854d0e;
+          border-left: 3px solid #eab308;
+        }
+
+        .velvetta-message.bot .slope-item--closed {
+          color: #991b1b;
+          border-left: 3px solid #dc2626;
         }
 
         .velvetta-message.bot .slopes-note {
           font-size: 12px;
-          color: #4ade80;
+          color: #6b7280;
           margin: 0;
           font-style: italic;
         }
