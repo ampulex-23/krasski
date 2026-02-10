@@ -1094,14 +1094,12 @@
             right: 0 !important;
             bottom: 0 !important;
             width: 100vw !important;
-            height: 100vh !important;
-            height: 100dvh !important; /* Dynamic viewport height for mobile */
+            height: auto !important;
             max-height: none !important;
             border-radius: 0 !important;
             z-index: ${zIndex + 1};
             display: flex;
             flex-direction: column;
-            padding-bottom: env(safe-area-inset-bottom, 0);
             box-sizing: border-box;
           }
 
@@ -1113,7 +1111,8 @@
 
           .velvetta-input-area {
             flex-shrink: 0;
-            padding-bottom: 12px !important;
+            padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+            background: #f8fafc;
           }
 
           .velvetta-header {
@@ -1384,30 +1383,29 @@
     }
 
     setupMobileKeyboardHandler() {
-      // Use visualViewport API for accurate keyboard detection
+      // Use visualViewport API for keyboard detection
       if (window.visualViewport) {
         const handleViewportResize = () => {
           if (!this.isOpen) return;
           
           const viewport = window.visualViewport;
-          const viewportHeight = viewport.height;
-          const viewportTop = viewport.offsetTop;
+          const windowHeight = window.innerHeight;
+          const keyboardHeight = windowHeight - viewport.height;
           
-          // Set chat window to match visible viewport
-          this.elements.chatWindow.style.height = `${viewportHeight}px`;
-          this.elements.chatWindow.style.top = `${viewportTop}px`;
+          // When keyboard is visible, adjust bottom position
+          if (keyboardHeight > 100) {
+            this.elements.chatWindow.style.bottom = `${keyboardHeight}px`;
+            this.elements.chatWindow.style.height = `${viewport.height}px`;
+          } else {
+            this.elements.chatWindow.style.bottom = '';
+            this.elements.chatWindow.style.height = '';
+          }
           
-          // Scroll to bottom when keyboard appears
           this.scrollToBottom();
         };
 
         window.visualViewport.addEventListener('resize', handleViewportResize);
         window.visualViewport.addEventListener('scroll', handleViewportResize);
-        
-        // Initial call to set correct size
-        if (this.isOpen) {
-          handleViewportResize();
-        }
       }
 
       // Scroll input into view on focus
@@ -1433,14 +1431,6 @@
       this.elements.chatWindow.classList.add('open');
       this.elements.toggleBtn.classList.add('open');
       this.elements.toggleBtn.innerHTML = icons.close;
-      
-      // Apply viewport size for mobile
-      if (window.visualViewport) {
-        const viewport = window.visualViewport;
-        this.elements.chatWindow.style.height = `${viewport.height}px`;
-        this.elements.chatWindow.style.top = `${viewport.offsetTop}px`;
-      }
-      
       this.elements.input.focus();
       this.scrollToBottom();
     }
@@ -1453,7 +1443,7 @@
       
       // Reset inline styles
       this.elements.chatWindow.style.height = '';
-      this.elements.chatWindow.style.top = '';
+      this.elements.chatWindow.style.bottom = '';
     }
 
     addMessage(content, type = 'user') {
