@@ -1095,9 +1095,22 @@
             bottom: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
+            height: 100dvh !important; /* Dynamic viewport height for mobile */
             max-height: none !important;
             border-radius: 0 !important;
             z-index: ${zIndex + 1};
+            display: flex;
+            flex-direction: column;
+          }
+
+          .velvetta-messages {
+            flex: 1;
+            min-height: 0; /* Important for flex scroll */
+            overflow-y: auto;
+          }
+
+          .velvetta-input-area {
+            flex-shrink: 0;
           }
 
           .velvetta-header {
@@ -1361,6 +1374,44 @@
           const replyText = quickReplyBtn.dataset.reply || quickReplyBtn.textContent.trim();
           this.sendQuickReply(replyText);
         }
+      });
+
+      // Handle mobile keyboard visibility
+      this.setupMobileKeyboardHandler();
+    }
+
+    setupMobileKeyboardHandler() {
+      // Use visualViewport API for accurate keyboard detection
+      if (window.visualViewport) {
+        const handleViewportResize = () => {
+          if (!this.isOpen) return;
+          
+          const viewport = window.visualViewport;
+          const windowHeight = window.innerHeight;
+          const viewportHeight = viewport.height;
+          const keyboardHeight = windowHeight - viewportHeight;
+          
+          // Apply offset when keyboard is visible (threshold 150px to avoid false positives)
+          if (keyboardHeight > 150) {
+            this.elements.chatWindow.style.height = `${viewportHeight}px`;
+            this.elements.chatWindow.style.top = `${viewport.offsetTop}px`;
+            this.scrollToBottom();
+          } else {
+            this.elements.chatWindow.style.height = '';
+            this.elements.chatWindow.style.top = '';
+          }
+        };
+
+        window.visualViewport.addEventListener('resize', handleViewportResize);
+        window.visualViewport.addEventListener('scroll', handleViewportResize);
+      }
+
+      // Fallback: scroll input into view on focus
+      this.elements.input.addEventListener('focus', () => {
+        setTimeout(() => {
+          this.elements.input.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          this.scrollToBottom();
+        }, 300);
       });
     }
 
