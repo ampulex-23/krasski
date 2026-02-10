@@ -1101,6 +1101,8 @@
             z-index: ${zIndex + 1};
             display: flex;
             flex-direction: column;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+            box-sizing: border-box;
           }
 
           .velvetta-messages {
@@ -1111,6 +1113,7 @@
 
           .velvetta-input-area {
             flex-shrink: 0;
+            padding-bottom: 12px !important;
           }
 
           .velvetta-header {
@@ -1387,31 +1390,31 @@
           if (!this.isOpen) return;
           
           const viewport = window.visualViewport;
-          const windowHeight = window.innerHeight;
           const viewportHeight = viewport.height;
-          const keyboardHeight = windowHeight - viewportHeight;
+          const viewportTop = viewport.offsetTop;
           
-          // Apply offset when keyboard is visible (threshold 150px to avoid false positives)
-          if (keyboardHeight > 150) {
-            this.elements.chatWindow.style.height = `${viewportHeight}px`;
-            this.elements.chatWindow.style.top = `${viewport.offsetTop}px`;
-            this.scrollToBottom();
-          } else {
-            this.elements.chatWindow.style.height = '';
-            this.elements.chatWindow.style.top = '';
-          }
+          // Set chat window to match visible viewport
+          this.elements.chatWindow.style.height = `${viewportHeight}px`;
+          this.elements.chatWindow.style.top = `${viewportTop}px`;
+          
+          // Scroll to bottom when keyboard appears
+          this.scrollToBottom();
         };
 
         window.visualViewport.addEventListener('resize', handleViewportResize);
         window.visualViewport.addEventListener('scroll', handleViewportResize);
+        
+        // Initial call to set correct size
+        if (this.isOpen) {
+          handleViewportResize();
+        }
       }
 
-      // Fallback: scroll input into view on focus
+      // Scroll input into view on focus
       this.elements.input.addEventListener('focus', () => {
         setTimeout(() => {
-          this.elements.input.scrollIntoView({ behavior: 'smooth', block: 'end' });
           this.scrollToBottom();
-        }, 300);
+        }, 100);
       });
     }
 
@@ -1430,6 +1433,14 @@
       this.elements.chatWindow.classList.add('open');
       this.elements.toggleBtn.classList.add('open');
       this.elements.toggleBtn.innerHTML = icons.close;
+      
+      // Apply viewport size for mobile
+      if (window.visualViewport) {
+        const viewport = window.visualViewport;
+        this.elements.chatWindow.style.height = `${viewport.height}px`;
+        this.elements.chatWindow.style.top = `${viewport.offsetTop}px`;
+      }
+      
       this.elements.input.focus();
       this.scrollToBottom();
     }
@@ -1439,6 +1450,10 @@
       this.elements.chatWindow.classList.remove('open');
       this.elements.toggleBtn.classList.remove('open');
       this.elements.toggleBtn.innerHTML = icons[this.config.buttonIcon] || icons.chat;
+      
+      // Reset inline styles
+      this.elements.chatWindow.style.height = '';
+      this.elements.chatWindow.style.top = '';
     }
 
     addMessage(content, type = 'user') {
