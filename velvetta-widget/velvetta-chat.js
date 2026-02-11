@@ -1192,28 +1192,32 @@
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
             width: 100vw !important;
-            height: auto !important;
+            height: calc(var(--velvetta-vh, 100vh)) !important;
+            max-width: none !important;
             max-height: none !important;
             border-radius: 0 !important;
             z-index: ${zIndex + 1};
-            display: flex;
-            flex-direction: column;
+            display: flex !important;
+            flex-direction: column !important;
             box-sizing: border-box;
+            right: 0 !important;
+            bottom: auto !important;
+          }
+
+          .velvetta-header {
+            flex-shrink: 0;
           }
 
           .velvetta-messages {
-            flex: 1;
-            min-height: 0; /* Important for flex scroll */
-            overflow-y: auto;
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
+            overflow-y: auto !important;
           }
 
           .velvetta-input-area {
-            flex-shrink: 0;
-            padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
-            background: #f8fafc;
+            flex-shrink: 0 !important;
+            padding-bottom: env(safe-area-inset-bottom, 12px) !important;
           }
 
           .velvetta-header {
@@ -1489,35 +1493,43 @@
     }
 
     setupMobileKeyboardHandler() {
-      // Use visualViewport API for keyboard detection
-      if (window.visualViewport) {
-        const handleViewportResize = () => {
-          if (!this.isOpen) return;
-          
-          const viewport = window.visualViewport;
-          const windowHeight = window.innerHeight;
-          const keyboardHeight = windowHeight - viewport.height;
-          
-          // When keyboard is visible, adjust bottom position
-          if (keyboardHeight > 100) {
-            this.elements.chatWindow.style.bottom = `${keyboardHeight}px`;
-            this.elements.chatWindow.style.height = `${viewport.height}px`;
-          } else {
-            this.elements.chatWindow.style.bottom = '';
-            this.elements.chatWindow.style.height = '';
-          }
-          
-          this.scrollToBottom();
-        };
+      // Set CSS variable --velvetta-vh to actual visible height
+      const setVh = () => {
+        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        document.documentElement.style.setProperty('--velvetta-vh', `${vh}px`);
+      };
 
-        window.visualViewport.addEventListener('resize', handleViewportResize);
-        window.visualViewport.addEventListener('scroll', handleViewportResize);
+      // Initial set
+      setVh();
+
+      // Update on viewport resize (keyboard open/close)
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          setVh();
+          if (this.isOpen) {
+            requestAnimationFrame(() => this.scrollToBottom());
+          }
+        });
       }
 
-      // Scroll input into view on focus
+      // Fallback for browsers without visualViewport
+      window.addEventListener('resize', () => {
+        setVh();
+      });
+
+      // On focus, wait for keyboard animation then update
       this.elements.input.addEventListener('focus', () => {
+        // iOS keyboard animation takes ~300ms
         setTimeout(() => {
+          setVh();
           this.scrollToBottom();
+        }, 350);
+      });
+
+      // On blur, keyboard closes
+      this.elements.input.addEventListener('blur', () => {
+        setTimeout(() => {
+          setVh();
         }, 100);
       });
     }
@@ -1552,9 +1564,8 @@
         this.exitFullscreen();
       }
       
-      // Reset inline styles
-      this.elements.chatWindow.style.height = '';
-      this.elements.chatWindow.style.bottom = '';
+      // Blur input to close keyboard on mobile
+      this.elements.input.blur();
     }
 
     toggleFullscreen() {
