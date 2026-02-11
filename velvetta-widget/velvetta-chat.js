@@ -1190,10 +1190,12 @@
 
           .velvetta-chat-window {
             position: fixed !important;
-            top: 0 !important;
             left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            top: auto !important;
             width: 100vw !important;
-            height: calc(var(--velvetta-vh, 100vh)) !important;
+            height: 100% !important;
             max-width: none !important;
             max-height: none !important;
             border-radius: 0 !important;
@@ -1201,8 +1203,6 @@
             display: flex !important;
             flex-direction: column !important;
             box-sizing: border-box;
-            right: 0 !important;
-            bottom: auto !important;
           }
 
           .velvetta-header {
@@ -1493,44 +1493,13 @@
     }
 
     setupMobileKeyboardHandler() {
-      // Set CSS variable --velvetta-vh to actual visible height
-      const setVh = () => {
-        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        document.documentElement.style.setProperty('--velvetta-vh', `${vh}px`);
-      };
+      if (!isMobileDevice()) return;
 
-      // Initial set
-      setVh();
-
-      // Update on viewport resize (keyboard open/close)
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', () => {
-          setVh();
-          if (this.isOpen) {
-            requestAnimationFrame(() => this.scrollToBottom());
-          }
-        });
-      }
-
-      // Fallback for browsers without visualViewport
-      window.addEventListener('resize', () => {
-        setVh();
-      });
-
-      // On focus, wait for keyboard animation then update
+      // On focus, scroll to bottom after keyboard opens
       this.elements.input.addEventListener('focus', () => {
-        // iOS keyboard animation takes ~300ms
         setTimeout(() => {
-          setVh();
           this.scrollToBottom();
         }, 350);
-      });
-
-      // On blur, keyboard closes
-      this.elements.input.addEventListener('blur', () => {
-        setTimeout(() => {
-          setVh();
-        }, 100);
       });
     }
 
