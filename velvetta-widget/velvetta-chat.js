@@ -29,8 +29,15 @@
     sessionIdKey: 'velvetta_session_id',
     showTimestamp: true,
     enableSounds: false,
-    customCss: ''
+    customCss: '',
+    openOnMobile: true // Auto-open chat on mobile devices
   };
+
+  // Helper to detect mobile devices
+  function isMobileDevice() {
+    return window.innerWidth <= 768 || 
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
 
   // Icons SVG
   const icons = {
@@ -39,13 +46,16 @@
     help: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
     close: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
     send: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`,
-    minimize: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`
+    minimize: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`,
+    fullscreen: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`,
+    exitFullscreen: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`
   };
 
   class VelvettaChat {
     constructor(userConfig = {}) {
       this.config = { ...defaultConfig, ...userConfig };
       this.isOpen = false;
+      this.isFullscreen = false;
       this.isLoading = false;
       this.messages = [];
       this.sessionId = this.getOrCreateSessionId();
@@ -70,6 +80,19 @@
       // Add welcome message
       if (this.config.welcomeMessage) {
         this.addMessage(this.config.welcomeMessage, 'bot');
+      }
+
+      // Check URL parameter for fullscreen mode
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'chat') {
+        this.open();
+        this.enterFullscreen();
+        return; // Skip other auto-open logic
+      }
+
+      // Auto-open on mobile if enabled
+      if (this.config.openOnMobile && isMobileDevice()) {
+        this.open();
       }
     }
 
@@ -1073,6 +1096,84 @@
           text-decoration: none;
         }
 
+        /* === FULLSCREEN MODE === */
+        .velvetta-widget.fullscreen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          z-index: ${zIndex + 10};
+        }
+
+        .velvetta-chat-window.fullscreen {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none !important;
+          max-height: none !important;
+          border-radius: 0 !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-header {
+          padding: 20px 40px;
+          border-radius: 0;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-messages {
+          padding: 30px;
+          max-width: 900px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-message {
+          max-width: 75%;
+          padding: 18px 24px;
+          font-size: 15px;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-message.bot {
+          max-width: 85%;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-input-area {
+          padding: 20px 40px 30px;
+          max-width: 900px;
+          margin: 0 auto;
+          width: 100%;
+          background: transparent;
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-input {
+          padding: 16px 20px;
+          font-size: 15px;
+          border-radius: 16px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .velvetta-chat-window.fullscreen .velvetta-send-btn {
+          width: 50px;
+          height: 50px;
+          border-radius: 14px;
+        }
+
+        /* Hide fullscreen button on mobile (already fullscreen) */
+        @media (max-width: 768px) {
+          .velvetta-fullscreen-btn {
+            display: none !important;
+          }
+        }
+
         /* === MOBILE RESPONSIVE === */
         @media (max-width: 768px) {
           .velvetta-widget {
@@ -1317,6 +1418,9 @@
               <span class="velvetta-header-subtitle">${this.config.subtitle}</span>
             </div>
             <div class="velvetta-header-actions">
+              <button class="velvetta-header-btn velvetta-fullscreen-btn" id="velvetta-fullscreen-btn" title="Полноэкранный режим">
+                ${icons.fullscreen}
+              </button>
               <button class="velvetta-header-btn" id="velvetta-close-btn" title="Закрыть">
                 ${icons.close}
               </button>
@@ -1349,7 +1453,8 @@
         input: document.getElementById('velvetta-input'),
         sendBtn: document.getElementById('velvetta-send-btn'),
         toggleBtn: document.getElementById('velvetta-toggle-btn'),
-        closeBtn: document.getElementById('velvetta-close-btn')
+        closeBtn: document.getElementById('velvetta-close-btn'),
+        fullscreenBtn: document.getElementById('velvetta-fullscreen-btn')
       };
     }
 
@@ -1357,6 +1462,7 @@
       this.elements.toggleBtn.addEventListener('click', () => this.toggle());
       this.elements.closeBtn.addEventListener('click', () => this.close());
       this.elements.sendBtn.addEventListener('click', () => this.sendMessage());
+      this.elements.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
       
       this.elements.input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -1441,9 +1547,51 @@
       this.elements.toggleBtn.classList.remove('open');
       this.elements.toggleBtn.innerHTML = icons[this.config.buttonIcon] || icons.chat;
       
+      // Exit fullscreen if active
+      if (this.isFullscreen) {
+        this.exitFullscreen();
+      }
+      
       // Reset inline styles
       this.elements.chatWindow.style.height = '';
       this.elements.chatWindow.style.bottom = '';
+    }
+
+    toggleFullscreen() {
+      this.isFullscreen ? this.exitFullscreen() : this.enterFullscreen();
+    }
+
+    enterFullscreen() {
+      this.isFullscreen = true;
+      this.elements.widget.classList.add('fullscreen');
+      this.elements.chatWindow.classList.add('fullscreen');
+      this.elements.fullscreenBtn.innerHTML = icons.exitFullscreen;
+      this.elements.fullscreenBtn.title = 'Выйти из полноэкранного режима';
+      
+      // Hide toggle button in fullscreen
+      this.elements.toggleBtn.style.display = 'none';
+      
+      // Ensure chat is open
+      if (!this.isOpen) {
+        this.open();
+      }
+      
+      this.scrollToBottom();
+      document.body.style.overflow = 'hidden';
+    }
+
+    exitFullscreen() {
+      this.isFullscreen = false;
+      this.elements.widget.classList.remove('fullscreen');
+      this.elements.chatWindow.classList.remove('fullscreen');
+      this.elements.fullscreenBtn.innerHTML = icons.fullscreen;
+      this.elements.fullscreenBtn.title = 'Полноэкранный режим';
+      
+      // Show toggle button
+      this.elements.toggleBtn.style.display = '';
+      
+      document.body.style.overflow = '';
+      this.scrollToBottom();
     }
 
     addMessage(content, type = 'user') {
