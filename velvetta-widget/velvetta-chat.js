@@ -1192,8 +1192,8 @@
             position: fixed !important;
             left: 0 !important;
             right: 0 !important;
+            top: 0 !important;
             bottom: 0 !important;
-            top: auto !important;
             width: 100vw !important;
             height: 100% !important;
             max-width: none !important;
@@ -1203,6 +1203,7 @@
             display: flex !important;
             flex-direction: column !important;
             box-sizing: border-box;
+            overflow: hidden !important;
           }
 
           .velvetta-header {
@@ -1213,6 +1214,7 @@
             flex: 1 1 0% !important;
             min-height: 0 !important;
             overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
           }
 
           .velvetta-input-area {
@@ -1495,12 +1497,50 @@
     setupMobileKeyboardHandler() {
       if (!isMobileDevice()) return;
 
-      // On focus, scroll to bottom after keyboard opens
+      // Prevent iOS Safari from scrolling the page when keyboard opens
+      // by keeping document scroll at 0
+      const preventPageScroll = () => {
+        if (this.isOpen) {
+          window.scrollTo(0, 0);
+        }
+      };
+
+      // Use visualViewport to track keyboard
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          if (!this.isOpen) return;
+          preventPageScroll();
+          this.scrollToBottom();
+        });
+
+        window.visualViewport.addEventListener('scroll', () => {
+          if (!this.isOpen) return;
+          preventPageScroll();
+        });
+      }
+
+      // On focus, prevent page scroll and scroll chat to bottom
       this.elements.input.addEventListener('focus', () => {
+        preventPageScroll();
+        // Wait for keyboard animation
         setTimeout(() => {
+          preventPageScroll();
+          this.scrollToBottom();
+        }, 100);
+        setTimeout(() => {
+          preventPageScroll();
           this.scrollToBottom();
         }, 350);
       });
+
+      // Prevent touchmove on body when chat is open
+      document.addEventListener('touchmove', (e) => {
+        if (!this.isOpen) return;
+        // Allow scrolling inside messages container
+        if (this.elements.messages.contains(e.target)) return;
+        if (this.elements.input.contains(e.target)) return;
+        e.preventDefault();
+      }, { passive: false });
     }
 
     autoResizeInput() {
@@ -1518,6 +1558,15 @@
       this.elements.chatWindow.classList.add('open');
       this.elements.toggleBtn.classList.add('open');
       this.elements.toggleBtn.innerHTML = icons.close;
+      
+      // Lock body scroll on mobile
+      if (isMobileDevice()) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
+      }
+      
       this.elements.input.focus();
       this.scrollToBottom();
     }
@@ -1535,6 +1584,14 @@
       
       // Blur input to close keyboard on mobile
       this.elements.input.blur();
+      
+      // Unlock body scroll on mobile
+      if (isMobileDevice()) {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+      }
     }
 
     toggleFullscreen() {
