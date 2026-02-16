@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ски Сервис KRASSKI — Обслуживание и ремонт горнолыжного снаряжения в Красной Поляне</title>
+  <meta name="description" content="Профессиональный ски-сервис KRASSKI в Красной Поляне. Заточка кантов, парафин, шлифовка, ремонт креплений и ботинок. Бесплатный трансфер. Ремонт от 30 минут.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --red: #E0074C;
+      --blue: #043799;
+      --blue-light: #E3F7FF;
+      --blue-lighter: #F5FCFF;
+      --dark: #0A1628;
+      --gray: #64748B;
+      --gray-light: #F1F5F9;
+      --white: #FFFFFF;
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--dark);
+      background: var(--white) url('img/background.svg') top center / 300% 100% no-repeat;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: padding 0.3s, background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .header.scrolled {
+      padding: 10px 40px;
+      background-color: rgba(255, 255, 255, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    @supports not (hanging-punctuation: first) {
+      .header.scrolled {
+        background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: url(#liquidGlassFilter) blur(10px);
+      }
+    }
+
+    .header-logo img {
+      height: 52px;
+      transition: height 0.3s;
+    }
+
+    .header.scrolled .header-logo img {
+      height: 40px;
+    }
+
+    .header-brand svg {
+      height: 28px;
+      width: auto;
+      transition: height 0.3s;
+    }
+
+    .header.scrolled .header-brand svg {
+      height: 22px;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-phone {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .header-phone:hover {
+      color: var(--red);
+    }
+
+    /* === BUTTONS === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(224, 7, 76, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #c80644;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(224, 7, 76, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--dark);
+      border: 2px solid rgba(10, 22, 40, 0.15);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--dark);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* === CONTAINER === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 100px;
+      position: relative;
+      background: linear-gradient(180deg, #C7EDFF 0%, rgba(213, 241, 255, 0.15) 50%, transparent 100%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text {
+      max-width: 560px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(4, 55, 153, 0.08);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--red), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 20px 60px rgba(4, 55, 153, 0.15);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(4, 55, 153, 0.1));
+      pointer-events: none;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(10, 22, 40, 0.08);
+    }
+
+    .hero-stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .hero-stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* === SECTION === */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 60px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(4, 55, 153, 0.06);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* === SERVICES === */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      border: 1px solid rgba(10, 22, 40, 0.06);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(4, 55, 153, 0.1);
+      border-color: transparent;
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .service-icon.blue { background: rgba(4, 55, 153, 0.08); }
+    .service-icon.red { background: rgba(224, 7, 76, 0.08); }
+    .service-icon.teal { background: rgba(6, 182, 212, 0.08); }
+
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .service-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .service-price small {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray);
+    }
+
+    /* === PRICING TABLE === */
+    .pricing-section {
+      background-color: rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    @supports not (hanging-punctuation: first) {
+      .pricing-section {
+        background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: url(#liquidGlassFilter) blur(6px);
+      }
+    }
+
+    .pricing-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(10, 22, 40, 0.06);
+      overflow-x: auto;
+    }
+
+    .pricing-tab {
+      flex: 1;
+      padding: 20px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .pricing-tab.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+      background: rgba(4, 55, 153, 0.03);
+    }
+
+    .pricing-tab:hover:not(.active) {
+      color: var(--dark);
+      background: rgba(10, 22, 40, 0.02);
+    }
+
+    .pricing-panel {
+      display: none;
+      padding: 0;
+    }
+
+    .pricing-panel.active {
+      display: block;
+    }
+
+    .pricing-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 1px solid rgba(10, 22, 40, 0.04);
+      transition: background 0.2s;
+    }
+
+    .pricing-row:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-row:hover {
+      background: rgba(4, 55, 153, 0.02);
+    }
+
+    .pricing-row-name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .pricing-row-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue);
+      white-space: nowrap;
+    }
+
+    .pricing-highlight {
+      background: linear-gradient(135deg, rgba(4, 55, 153, 0.04), rgba(224, 7, 76, 0.03));
+    }
+
+    .pricing-highlight .pricing-row-name {
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .pricing-highlight .pricing-row-price {
+      color: var(--red);
+      font-size: 20px;
+    }
+
+    /* === ADVANTAGES === */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .advantage-card {
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid rgba(10, 22, 40, 0.06);
+      transition: all 0.3s;
+    }
+
+    .advantage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(4, 55, 153, 0.08);
+      border-color: transparent;
+    }
+
+    .advantage-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 36px;
+      background: linear-gradient(135deg, var(--blue-lighter), var(--blue-light));
+    }
+
+    .advantage-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .advantage-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* === GALLERY SECTION === */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      cursor: pointer;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10, 22, 40, 0.7));
+      display: flex;
+      align-items: flex-end;
+      padding: 32px;
+    }
+
+    .gallery-card-text h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .gallery-card-text p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* === SPARE PARTS === */
+    .parts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .parts-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid rgba(10, 22, 40, 0.06);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+
+    .parts-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(4, 55, 153, 0.08);
+    }
+
+    .parts-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: rgba(4, 55, 153, 0.06);
+      flex-shrink: 0;
+    }
+
+    .parts-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .parts-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* === CTA === */
+    .cta-section {
+      padding: 100px 0;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, var(--blue), #0652DD);
+      border-radius: var(--radius);
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(224, 7, 76, 0.15);
+      border-radius: 50%;
+    }
+
+    .cta-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-card h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-card p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(10, 22, 40, 0.06);
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--blue);
+    }
+
+    /* === ANIMATIONS === */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-image {
+        max-width: 600px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 12px 20px;
+      }
+
+      .header.scrolled {
+        padding: 8px 20px;
+      }
+
+      .header-logo img {
+        height: 40px;
+      }
+
+      .header.scrolled .header-logo img {
+        height: 34px;
+      }
+
+      .header-phone {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 100px;
+        padding-bottom: 60px;
+      }
+
+      .hero-stats {
+        gap: 20px;
+      }
+
+      .hero-stat-value {
+        font-size: 22px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .parts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-card {
+        padding: 48px 24px;
+      }
+
+      .pricing-row {
+        padding: 16px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-actions .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Liquid Glass SVG Filter -->
+<svg style="display: none">
+  <filter id="liquidGlassFilter">
+    <feImage
+      href="data:image/png;base64,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"
+      result="turbulence"
+      preserveAspectRatio="none"
+    />
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="turbulence"
+      scale="600"
+      xChannelSelector="R"
+      yChannelSelector="G"
+    />
+  </filter>
+</svg>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <a href="#" class="header-logo">
+    <img src="img/logo.png" alt="Ски Сервис">
+  </a>
+  <div class="header-cta">
+    <a href="tel:88005114790" class="header-phone">8 800 511-47-90</a>
+    <a href="#" class="header-brand">
+      <svg width="876" height="400" viewBox="0 0 876 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M544 2.0848e-05L524 100C507.999 100 520 100 504 100C435.525 100 389.249 137.871 342.445 193.844C281.207 267.079 337.352 199.994 278.164 270.422C210.041 351.482 143.848 400 39.9993 400C23.9993 400 15.9992 400 0 400L20 300C36 300 -0.000286102 300 39.9993 300C117.401 300 154.719 262.061 201.602 206.125C263.582 132.175 206.72 200.027 265.852 129.531C333.889 48.4186 389.059 0.000155339 504 8.5758e-06C520 -1.18539e-05 527.999 9.12059e-06 544 2.0848e-05Z" fill="#E0074C"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M876.001 2.0848e-05L856.001 100C840 100 852.001 100 836.001 100C767.526 100 721.25 137.871 674.446 193.844C613.208 267.079 669.353 199.994 610.165 270.422C542.042 351.482 475.849 400 372 400C356 400 348 400 332.001 400L352.001 300C368.001 300 332.001 300 372 300C449.402 300 486.72 262.061 533.603 206.125C595.583 132.175 538.721 200.027 597.853 129.531C665.89 48.4186 721.06 0.000155339 836.001 8.5758e-06C852.001 -1.18539e-05 860 9.12059e-06 876.001 2.0848e-05Z" fill="#043799"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text fade-up">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Красная Поляна
+        </div>
+        <h1>Профессиональный <span>ски-сервис</span> для вашего снаряжения</h1>
+        <p class="hero-desc">Заточка, парафин, шлифовка и ремонт горнолыжного оборудования. Работаем на оборудовании и материалах Holmenkol, SWIX, TOKO.</p>
+        <div class="hero-actions">
+          <a href="tel:88005114790" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Позвонить
+          </a>
+          <a href="#pricing" class="btn btn-outline">Смотреть цены</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">от 30 мин</div>
+            <div class="hero-stat-label">Время ремонта</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">1 500 ₽</div>
+            <div class="hero-stat-label">Заточка кантов</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">0 ₽</div>
+            <div class="hero-stat-label">Трансфер в сервис</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image fade-up" style="transition-delay: 0.2s">
+        <img src="img/ski_service.jpeg" alt="Ски-сервис KRASSKI — профессиональная мастерская">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Услуги</div>
+      <h2 class="section-title">Обслуживание снаряжения</h2>
+      <p class="section-desc">Полный цикл ухода за горнолыжным и сноубордическим оборудованием</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon blue">⚔️</div>
+        <h3>Заточка кантов</h3>
+        <p>Профессиональная заточка кантов лыж и сноуборда для идеального сцепления с трассой</p>
+        <div class="service-price">1 500 ₽</div>
+      </div>
+      <div class="service-card fade-up" style="transition-delay: 0.1s">
+        <div class="service-icon red">🔥</div>
+        <h3>Нанесение парафина</h3>
+        <p>Горячее нанесение парафина для максимального скольжения и защиты скользящей поверхности</p>
+        <div class="service-price">1 500 ₽</div>
+      </div>
+      <div class="service-card fade-up" style="transition-delay: 0.2s">
+        <div class="service-icon teal">✨</div>
+        <h3>Шлифовка скользяка</h3>
+        <p>Восстановление структуры скользящей поверхности для оптимальной работы снаряжения</p>
+        <div class="service-price">1 500 ₽</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Прайс</div>
+      <h2 class="section-title">Цены на услуги</h2>
+      <p class="section-desc">Комплексные пакеты — выгоднее, чем по отдельности</p>
+    </div>
+    <div class="pricing-section fade-up">
+      <div class="pricing-tabs">
+        <button class="pricing-tab active" data-tab="service">Обслуживание</button>
+        <button class="pricing-tab" data-tab="complex">Комплексные</button>
+        <button class="pricing-tab" data-tab="repair">Ремонт</button>
+        <button class="pricing-tab" data-tab="boots">Скользяк и ботинки</button>
+      </div>
+
+      <div class="pricing-panel active" id="panel-service">
+        <div class="pricing-row">
+          <span class="pricing-row-name">Заточка кантов</span>
+          <span class="pricing-row-price">1 500 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Нанесение парафина</span>
+          <span class="pricing-row-price">1 500 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Шлифовка скользяка</span>
+          <span class="pricing-row-price">1 500 ₽</span>
+        </div>
+      </div>
+
+      <div class="pricing-panel" id="panel-complex">
+        <div class="pricing-row pricing-highlight">
+          <span class="pricing-row-name">🔥 Все 3 услуги (заточка + парафин + шлифовка)</span>
+          <span class="pricing-row-price">3 500 ₽ <small style="text-decoration: line-through; color: #94a3b8; font-weight: 400;">4 500 ₽</small></span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Любые 2 из 3 услуг</span>
+          <span class="pricing-row-price">2 500 ₽</span>
+        </div>
+      </div>
+
+      <div class="pricing-panel" id="panel-repair">
+        <div class="pricing-row">
+          <span class="pricing-row-name">Установка креплений для лыж</span>
+          <span class="pricing-row-price">4 000 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Ремонт креплений лыж / сноубордов</span>
+          <span class="pricing-row-price">от 500 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Ремонт канта</span>
+          <span class="pricing-row-price">от 1 000 ₽</span>
+        </div>
+      </div>
+
+      <div class="pricing-panel" id="panel-boots">
+        <div class="pricing-row">
+          <span class="pricing-row-name">Заплатка скользяка</span>
+          <span class="pricing-row-price">от 2 000 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Заливка царапин скользяка</span>
+          <span class="pricing-row-price">от 500 ₽</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-name">Ремонт ботинок</span>
+          <span class="pricing-row-price">от 500 ₽</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="section" id="advantages">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Почему мы</div>
+      <h2 class="section-title">Наши преимущества</h2>
+    </div>
+    <div class="advantages-grid">
+      <div class="advantage-card fade-up">
+        <div class="advantage-icon">🚐</div>
+        <h3>Бесплатный трансфер</h3>
+        <p>Привезём вас и ваше снаряжение в сервис и обратно — бесплатно</p>
+      </div>
+      <div class="advantage-card fade-up" style="transition-delay: 0.1s">
+        <div class="advantage-icon">⏱️</div>
+        <h3>Ремонт от 30 минут</h3>
+        <p>Быстрое обслуживание без долгого ожидания — катайтесь в тот же день</p>
+      </div>
+      <div class="advantage-card fade-up" style="transition-delay: 0.2s">
+        <div class="advantage-icon">☕</div>
+        <h3>Уютный зал ожидания</h3>
+        <p>Комфортная зона отдыха, пока ваше снаряжение в работе</p>
+      </div>
+      <div class="advantage-card fade-up" style="transition-delay: 0.3s">
+        <div class="advantage-icon">🏆</div>
+        <h3>Топ-оборудование</h3>
+        <p>Работаем на материалах и оборудовании Holmenkol, SWIX, TOKO</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Галерея</div>
+      <h2 class="section-title">Наш сервис и прокат</h2>
+    </div>
+    <div class="gallery-grid fade-up">
+      <div class="gallery-card">
+        <img src="img/ski_service.jpeg" alt="Мастерская ски-сервиса KRASSKI">
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-text">
+            <h3>Мастерская</h3>
+            <p>Профессиональное оборудование для обслуживания снаряжения</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="img/rent_equipment.jpeg" alt="Прокат снаряжения KRASSKI">
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-text">
+            <h3>Прокат</h3>
+            <p>Широкий выбор лыж, сноубордов и экипировки</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPARE PARTS -->
+<section class="section" id="parts">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Запчасти</div>
+      <h2 class="section-title">Продажа запчастей</h2>
+      <p class="section-desc">В наличии комплектующие для лыж, сноубордов и ботинок</p>
+    </div>
+    <div class="parts-grid">
+      <div class="parts-card fade-up">
+        <div class="parts-icon">⛷️</div>
+        <div>
+          <h3>Крепления для лыж</h3>
+          <p>Подбор и установка креплений под ваши лыжи и ботинки</p>
+        </div>
+      </div>
+      <div class="parts-card fade-up" style="transition-delay: 0.1s">
+        <div class="parts-icon">🏂</div>
+        <div>
+          <h3>Крепления для сноубордов</h3>
+          <p>Бакли, стрепы, хайбеки и другие комплектующие</p>
+        </div>
+      </div>
+      <div class="parts-card fade-up" style="transition-delay: 0.2s">
+        <div class="parts-icon">🔧</div>
+        <div>
+          <h3>Запчасти для креплений</h3>
+          <p>Бакли, стрепы, хайбеки — всё для ремонта креплений</p>
+        </div>
+      </div>
+      <div class="parts-card fade-up" style="transition-delay: 0.3s">
+        <div class="parts-icon">🥾</div>
+        <div>
+          <h3>Для ботинок</h3>
+          <p>Клипсы, шнурки, пятки и другие запчасти для горнолыжных ботинок</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card fade-up">
+      <h2>Готовы к идеальному катанию?</h2>
+      <p>Привезём вас в сервис бесплатно. Позвоните или напишите — подготовим снаряжение к трассе.</p>
+      <div class="cta-actions">
+        <a href="tel:88005114790" class="btn btn-white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          8 800 511-47-90
+        </a>
+        <a href="https://wa.me/78005114790" class="btn btn-primary" target="_blank">Написать в WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-copy">&copy; 2025 KRASSKI. Ски-сервис в Красной Поляне</div>
+      <div class="footer-links">
+        <a href="https://krasski.ru">krasski.ru</a>
+        <a href="tel:88005114790">8 800 511-47-90</a>
+        <a href="https://krasski.ru/privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll effect
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Pricing tabs
+  document.querySelectorAll('.pricing-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
