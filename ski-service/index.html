@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ски Сервис KRASSKI — Обслуживание и ремонт горнолыжного снаряжения в Красной Поляне</title>
   <meta name="description" content="Профессиональный ски-сервис KRASSKI в Красной Поляне. Заточка кантов, парафин, шлифовка, ремонт креплений и ботинок. Бесплатный трансфер. Ремонт от 30 минут.">
+  <meta name="keywords" content="ски сервис Красная Поляна, горнолыжный сервис Сочи, заточка кантов лыж, нанесение парафина лыжи, шлифовка скользяка, ремонт горнолыжных креплений, ремонт ботинок горнолыжных, установка креплений лыжи, ски сервис Эстосадок, обслуживание лыж Роза Хутор, обслуживание сноуборда Красная Поляна, горнолыжная мастерская Сочи, KRASSKI сервис, ремонт лыж Красная Поляна, заточка сноуборда Сочи, парафинирование лыж Красная Поляна, ski service Krasnaya Polyana, горнолыжный сервис Газпром Альпика">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -71,7 +72,7 @@
     }
 
     .header-logo img {
-      height: 52px;
+      height: 100px;
       transition: height 0.3s;
     }
 
@@ -415,10 +416,46 @@
       margin-bottom: 20px;
     }
 
+    .service-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+    }
+
     .service-price {
       font-size: 24px;
       font-weight: 800;
       color: var(--blue);
+    }
+
+    .btn-order {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, var(--red), var(--blue));
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-order:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
     }
 
     .service-price small {
@@ -1126,12 +1163,14 @@
 
 <!-- HEADER -->
 <header class="header" id="header">
+  <div></div>
   <a href="#" class="header-logo">
     <img src="img/logo.png" alt="Ски Сервис">
   </a>
   <div class="header-cta">
-    <a href="tel:88005114790" class="header-phone">8 800 511-47-90</a>
-    <a href="#" class="header-brand">
+    
+    <a href="tel:88005114790" class="header-phone" hidden>8 800 511-47-90</a>
+    <a href="#" class="header-brand" hidden>
       <svg width="876" height="400" viewBox="0 0 876 400" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M544 2.0848e-05L524 100C507.999 100 520 100 504 100C435.525 100 389.249 137.871 342.445 193.844C281.207 267.079 337.352 199.994 278.164 270.422C210.041 351.482 143.848 400 39.9993 400C23.9993 400 15.9992 400 0 400L20 300C36 300 -0.000286102 300 39.9993 300C117.401 300 154.719 262.061 201.602 206.125C263.582 132.175 206.72 200.027 265.852 129.531C333.889 48.4186 389.059 0.000155339 504 8.5758e-06C520 -1.18539e-05 527.999 9.12059e-06 544 2.0848e-05Z" fill="#E0074C"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M876.001 2.0848e-05L856.001 100C840 100 852.001 100 836.001 100C767.526 100 721.25 137.871 674.446 193.844C613.208 267.079 669.353 199.994 610.165 270.422C542.042 351.482 475.849 400 372 400C356 400 348 400 332.001 400L352.001 300C368.001 300 332.001 300 372 300C449.402 300 486.72 262.061 533.603 206.125C595.583 132.175 538.721 200.027 597.853 129.531C665.89 48.4186 721.06 0.000155339 836.001 8.5758e-06C852.001 -1.18539e-05 860 9.12059e-06 876.001 2.0848e-05Z" fill="#043799"/>
@@ -1151,7 +1190,7 @@
     <div class="hero-content fade-up">
       <div class="hero-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        Красная Поляна
+        KRASSKI Красная Поляна
       </div>
       <h1>Профессиональный <span>ски-сервис</span> для вашего снаряжения</h1>
       <p class="hero-desc">Заточка, парафин, шлифовка и ремонт горнолыжного оборудования. Работаем на оборудовании и материалах Holmenkol, SWIX, TOKO.</p>
@@ -1197,19 +1236,28 @@
         <div class="service-icon blue">⚔️</div>
         <h3>Заточка кантов</h3>
         <p>Профессиональная заточка кантов лыж и сноуборда для идеального сцепления с трассой</p>
-        <div class="service-price">1 500 ₽</div>
+        <div class="service-price-row">
+          <div class="service-price">1 500 ₽</div>
+          <button class="btn-order" onclick="openCallbackModal('Заточка кантов — 1 500 ₽')">Заказать</button>
+        </div>
       </div>
       <div class="service-card fade-up" style="transition-delay: 0.1s">
         <div class="service-icon red">🔥</div>
         <h3>Нанесение парафина</h3>
         <p>Горячее нанесение парафина для максимального скольжения и защиты скользящей поверхности</p>
-        <div class="service-price">1 500 ₽</div>
+        <div class="service-price-row">
+          <div class="service-price">1 500 ₽</div>
+          <button class="btn-order" onclick="openCallbackModal('Нанесение парафина — 1 500 ₽')">Заказать</button>
+        </div>
       </div>
       <div class="service-card fade-up" style="transition-delay: 0.2s">
         <div class="service-icon teal">✨</div>
-        <h3>Шлифовка скользяка</h3>
-        <p>Восстановление структуры скользящей поверхности для оптимальной работы снаряжения</p>
-        <div class="service-price">1 500 ₽</div>
+        <h3>Комплекс услуг</h3>
+        <p>Любые два вида услуг на ваш выбор: заточка, парафин и шлифовка по выгодной цене</p>
+        <div class="service-price-row">
+          <div class="service-price">2 500 ₽</div>
+          <button class="btn-order" onclick="openCallbackModal('Комплекс услуг — 2 500 ₽')">Заказать</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1327,19 +1375,19 @@
   <div class="container">
     <div class="section-header fade-up">
       <div class="section-label">Галерея</div>
-      <h2 class="section-title">Наш сервис и прокат</h2>
+      <h2 class="section-title">Наша школа и прокат</h2>
     </div>
     <div class="gallery-grid fade-up">
-      <div class="gallery-card">
-        <img src="img/service.jpg" alt="Мастерская ски-сервиса KRASSKI">
+      <a href="https://krasski.ru/price" class="gallery-card">
+        <img src="img/school.jpeg" alt="Инструкторы KRASSKI — школа горных лыж и сноуборда">
         <div class="gallery-card-overlay">
           <div class="gallery-card-text">
-            <h3>Мастерская</h3>
-            <p>Профессиональное оборудование для обслуживания снаряжения</p>
+            <h3>Инструкторы</h3>
+            <p>Школа горных лыж и сноуборда в Красной Поляне</p>
           </div>
         </div>
-      </div>
-      <div class="gallery-card">
+      </a>
+      <a href="https://krasski.ru/rent" class="gallery-card">
         <img src="img/rent.jpg" alt="Прокат снаряжения KRASSKI">
         <div class="gallery-card-overlay">
           <div class="gallery-card-text">
@@ -1347,7 +1395,7 @@
             <p>Широкий выбор лыж, сноубордов и экипировки</p>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
