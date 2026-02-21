@@ -768,6 +768,202 @@
       color: var(--blue);
     }
 
+    /* === CALLBACK MODAL === */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(10, 22, 40, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 440px;
+      padding: 40px 36px;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(4, 55, 153, 0.2);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gray-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(224, 7, 76, 0.1);
+    }
+
+    .modal-close svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gray);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .modal-service {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(4, 55, 153, 0.06);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid rgba(10, 22, 40, 0.1);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(4, 55, 153, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--red), var(--blue));
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 8px;
+    }
+
+    .form-submit:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .form-success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+    }
+
+    .form-success h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    /* Clickable prices */
+    .service-price,
+    .pricing-row-price {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .service-price:hover,
+    .pricing-row-price:hover {
+      color: var(--red);
+    }
+
+    .pricing-row {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .pricing-row:hover {
+      background: rgba(4, 55, 153, 0.03);
+    }
+
     /* === ANIMATIONS === */
     .fade-up {
       opacity: 0;
@@ -960,9 +1156,9 @@
       <h1>Профессиональный <span>ски-сервис</span> для вашего снаряжения</h1>
       <p class="hero-desc">Заточка, парафин, шлифовка и ремонт горнолыжного оборудования. Работаем на оборудовании и материалах Holmenkol, SWIX, TOKO.</p>
       <div class="hero-actions">
-        <a href="tel:88005114790" class="btn btn-primary">
+        <a href="javascript:void(0)" class="btn btn-primary" onclick="openCallbackModal()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Позвонить
+          Заказать звонок
         </a>
         <a href="#pricing" class="btn btn-white">Смотреть цены</a>
       </div>
@@ -1228,6 +1424,34 @@
   </div>
 </footer>
 
+<!-- CALLBACK MODAL -->
+<div class="modal-overlay" id="callbackModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="callbackForm">
+      <div class="modal-title">Заказать звонок</div>
+      <div class="modal-subtitle">Перезвоним в течение 15 минут</div>
+      <div class="modal-service" id="modalService" style="display:none"></div>
+      <div class="form-group">
+        <label for="callbackName">Ваше имя</label>
+        <input type="text" id="callbackName" placeholder="Как вас зовут?" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="callbackPhone">Телефон</label>
+        <input type="tel" id="callbackPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+      </div>
+      <button class="form-submit" id="callbackSubmit">Жду звонка</button>
+    </div>
+    <div class="form-success" id="callbackSuccess" style="display:none">
+      <div class="form-success-icon">✅</div>
+      <h3>Заявка отправлена!</h3>
+      <p>Мы перезвоним вам в ближайшее время</p>
+    </div>
+  </div>
+</div>
+
 <script>
   // Header scroll effect
   const header = document.getElementById('header');
@@ -1255,7 +1479,157 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // === CALLBACK FORM ===
+  const modal = document.getElementById('callbackModal');
+  const modalService = document.getElementById('modalService');
+  const callbackForm = document.getElementById('callbackForm');
+  const callbackSuccess = document.getElementById('callbackSuccess');
+  const callbackSubmit = document.getElementById('callbackSubmit');
+  const callbackName = document.getElementById('callbackName');
+  const callbackPhone = document.getElementById('callbackPhone');
+
+  function openCallbackModal(serviceName) {
+    if (serviceName) {
+      modalService.textContent = serviceName;
+      modalService.style.display = 'inline-block';
+    } else {
+      modalService.style.display = 'none';
+    }
+    callbackForm.style.display = 'block';
+    callbackSuccess.style.display = 'none';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => callbackName.focus(), 300);
+  }
+
+  function closeCallbackModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeCallbackModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeCallbackModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCallbackModal();
+  });
+
+  // Phone mask
+  callbackPhone.addEventListener('input', function() {
+    let val = this.value.replace(/\D/g, '');
+    if (val.length === 0) { this.value = ''; return; }
+    if (val[0] === '8') val = '7' + val.slice(1);
+    if (val[0] !== '7') val = '7' + val;
+    let formatted = '+7';
+    if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+    if (val.length > 4) formatted += ') ' + val.slice(4, 7);
+    if (val.length > 7) formatted += '-' + val.slice(7, 9);
+    if (val.length > 9) formatted += '-' + val.slice(9, 11);
+    this.value = formatted;
+  });
+
+  callbackPhone.addEventListener('focus', function() {
+    if (!this.value) this.value = '+7';
+  });
+
+  // Make all prices clickable
+  document.querySelectorAll('.service-price').forEach(el => {
+    el.addEventListener('click', () => {
+      const card = el.closest('.service-card');
+      const name = card ? card.querySelector('h3')?.textContent : '';
+      const price = el.textContent.trim();
+      openCallbackModal(name + ' — ' + price);
+    });
+  });
+
+  document.querySelectorAll('.pricing-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const name = row.querySelector('.pricing-row-name')?.textContent.trim() || '';
+      const price = row.querySelector('.pricing-row-price')?.textContent.trim() || '';
+      openCallbackModal(name + ' — ' + price);
+    });
+  });
+
+  // Send to Telegram via Velvetta bot
+  const TG_BOT_TOKEN = '7819aborw:AAFfake_placeholder';
+  const TG_CHAT_ID = '-1001729290916';
+
+  async function sendToTelegram(name, phone, service) {
+    const text = '📞 *Заявка на обратный звонок*\n\n' +
+      '👤 *Имя:* ' + name + '\n' +
+      '📱 *Телефон:* ' + phone + '\n' +
+      (service ? '🎿 *Услуга:* ' + service + '\n' : '') +
+      '🕐 *Время:* ' + new Date().toLocaleString('ru-RU') + '\n' +
+      '📍 *Источник:* Ски-сервис лендинг';
+
+    try {
+      const resp = await fetch('https://n8n.metodoxia25.net/webhook/krasski-service', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          service: service || '',
+          source: 'ski-service-landing',
+          chat_id: TG_CHAT_ID,
+          text: text
+        })
+      });
+      return resp.ok;
+    } catch (e) {
+      console.error('Send error:', e);
+      return false;
+    }
+  }
+
+  callbackSubmit.addEventListener('click', async () => {
+    const name = callbackName.value.trim();
+    const phone = callbackPhone.value.trim();
+    const service = modalService.style.display !== 'none' ? modalService.textContent : '';
+
+    if (!name) { callbackName.focus(); return; }
+    if (phone.replace(/\D/g, '').length < 11) { callbackPhone.focus(); return; }
+
+    callbackSubmit.disabled = true;
+    callbackSubmit.textContent = 'Отправляю...';
+
+    await sendToTelegram(name, phone, service);
+
+    callbackForm.style.display = 'none';
+    callbackSuccess.style.display = 'block';
+    callbackSubmit.disabled = false;
+    callbackSubmit.textContent = 'Жду звонка';
+    callbackName.value = '';
+    callbackPhone.value = '';
+
+    setTimeout(closeCallbackModal, 3000);
+  });
 </script>
+
+<!-- Velvetta Chat Widget -->
+<script>
+  window.VelvettaChatConfig = {
+    webhookUrl: 'https://n8n.metodoxia25.net/webhook/velvetta',
+    title: 'Вельветта',
+    subtitle: 'AI-ассистент ски-сервиса',
+    welcomeMessage: '<p>👋 Привет! Я <strong>Вельветта</strong>, помощник ски-сервиса KRASSKI 🎿</p><p>Расскажу о ценах, услугах и помогу записаться на обслуживание.</p>',
+    placeholder: 'Напишите сообщение...',
+    position: 'bottom-right',
+    primaryColor: '#043799',
+    secondaryColor: '#E0074C',
+    userMessageBg: '#043799',
+    botMessageBg: '#F5FCFF',
+    botMessageColor: '#0A1628',
+    buttonIcon: 'chat',
+    width: 420,
+    height: 580,
+    openOnMobile: false,
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif'
+  };
+</script>
+<script src="../velvetta-widget/velvetta-chat.js"></script>
 
 </body>
 </html>
