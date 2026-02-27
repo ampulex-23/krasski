@@ -1143,7 +1143,7 @@
         }
 
         .velvetta-chat-window.fullscreen .velvetta-message.bot {
-          max-width: 85%;
+          max-width: none;
         }
 
         .velvetta-chat-window.fullscreen .velvetta-input-area {
