@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRASSKI — Горнолыжная школа и прокат в Красной Поляне</title>
+  <meta name="description" content="Инструкторы по горным лыжам и сноуборду, прокат снаряжения и ски-сервис в Красной Поляне. Роза Хутор, Газпром, Красная Поляна 960/540. Бесплатный трансфер.">
+  <meta name="keywords" content="горнолыжная школа Красная Поляна, инструктор лыжи Роза Хутор, прокат лыж Красная Поляна, горнолыжный инструктор Сочи, обучение сноуборду Красная Поляна, KRASSKI, прокат сноуборда Роза Хутор, горнолыжная школа Газпром Альпика, детский инструктор лыжи Красная Поляна, ski instructor Krasnaya Polyana">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --red: #E0074C;
+      --blue: #043799;
+      --blue-light: #E3F7FF;
+      --blue-lighter: #F5FCFF;
+      --dark: #0A1628;
+      --gray: #64748B;
+      --gray-light: #F1F5F9;
+      --white: #FFFFFF;
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--dark);
+      background: var(--white) url('img/background.svg') top center / 300% 100% no-repeat;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === SVG LIQUID GLASS FILTER === */
+    .svg-filters { position: absolute; width: 0; height: 0; }
+
+    /* === HEADER === */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: padding 0.3s, background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .header.scrolled {
+      padding: 8px 40px;
+      background-color: rgba(255,255,255,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    @supports not (hanging-punctuation: first) {
+      .header.scrolled {
+        background-color: rgba(255,255,255,0.5);
+        backdrop-filter: url(#liquidGlassFilter) blur(10px);
+      }
+    }
+
+    .header-logo img {
+      height: 48px;
+      transition: height 0.3s;
+    }
+
+    .header.scrolled .header-logo img {
+      height: 36px;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 50px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .header.scrolled .header-nav a {
+      color: var(--dark);
+      text-shadow: none;
+    }
+
+    .header-nav a:hover {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+    }
+
+    .header.scrolled .header-nav a:hover {
+      background: rgba(4,55,153,0.07);
+      color: var(--blue);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .header.scrolled .header-icon {
+      background: rgba(4,55,153,0.07);
+      color: var(--dark);
+    }
+
+    .header-icon:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .header.scrolled .header-icon:hover {
+      background: rgba(4,55,153,0.15);
+      color: var(--blue);
+    }
+
+    .header-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .header-phone {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .header.scrolled .header-phone {
+      color: var(--dark);
+      text-shadow: none;
+    }
+
+    .header-phone:hover { color: var(--red); }
+
+    /* === BUTTONS === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(224,7,76,0.35);
+    }
+
+    .btn-primary:hover {
+      background: #c80644;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(224,7,76,0.45);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--dark);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(4,55,153,0.25);
+    }
+
+    .btn-blue:hover {
+      background: #032e80;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(4,55,153,0.35);
+    }
+
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    /* === CONTAINER === */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === SECTION === */
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(4,55,153,0.08);
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 560px;
+    }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+
+    .section-header.centered {
+      text-align: center;
+    }
+
+    .section-header.centered .section-desc {
+      margin: 0 auto;
+    }
+
+    /* === HERO === */
+    .hero {
+      padding-top: 72px;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .hero-top {
+      padding: 48px 0 0px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(4,55,153,0.08);
+      border: 1px solid rgba(4,55,153,0.15);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.25); }
+      50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.1); }
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 60px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+      -webkit-text-fill-color: var(--red);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      transform: translateY(-50px);
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-image-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 48px;
+      pointer-events: none;
+    }
+
+    .hero-caption-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .hero-caption-item svg {
+      width: 13px;
+      height: 13px;
+      stroke: rgba(255,255,255,0.8);
+      flex-shrink: 0;
+    }
+
+    .hero-caption-item strong {
+      font-weight: 700;
+    }
+
+    /* === FEATURES === */
+    .features {
+      padding: 48px 0 64px;
+      background: transparent;
+    }
+
+    .features-inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      border: 1px solid rgba(10,22,40,0.07);
+      box-shadow: 0 2px 16px rgba(10,22,40,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(4,55,153,0.1);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--white);
+      fill: none;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .feature-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .feature-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--blue);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: auto;
+    }
+
+    .feature-btn:hover {
+      background: #032e80;
+      transform: translateY(-1px);
+    }
+
+    /* === RESORTS === */
+    .resorts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .resort-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(10,22,40,0.07);
+      box-shadow: 0 2px 16px rgba(10,22,40,0.05);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .resort-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(10,22,40,0.12);
+    }
+
+    .resort-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .resort-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .resort-card:hover .resort-card-img img {
+      transform: scale(1.05);
+    }
+
+    .resort-content {
+      padding: 24px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .resort-content h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .resort-content p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .resort-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      background: var(--red);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+
+    .resort-cta:hover {
+      background: #c80644;
+      transform: translateY(-1px);
+    }
+
+    /* === MAP === */
+    .map-section {
+      padding: 64px 0;
+    }
+
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(10,22,40,0.1);
+      position: relative;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 440px;
+      border: none;
+      display: block;
+    }
+
+    .map-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .map-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--white);
+      border: 1px solid rgba(10,22,40,0.1);
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(10,22,40,0.05);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .map-badge:hover {
+      box-shadow: 0 6px 20px rgba(10,22,40,0.1);
+      transform: translateY(-2px);
+    }
+
+    .map-badge svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--blue);
+      fill: none;
+    }
+
+    /* === STATS === */
+    .stats-section {
+      background: var(--blue);
+      padding: 64px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0 24px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-value {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .stat-value span {
+      background: var(--blue-light);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+    }
+
+    /* === REVIEWS === */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid rgba(10,22,40,0.06);
+      box-shadow: 0 4px 24px rgba(10,22,40,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(10,22,40,0.1);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .review-avatar.a1 { background: linear-gradient(135deg, #E0074C, #FF6B9D); }
+    .review-avatar.a2 { background: linear-gradient(135deg, #043799, #6DB3F2); }
+    .review-avatar.a3 { background: linear-gradient(135deg, #0891b2, #38bdf8); }
+    .review-avatar.a4 { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+    .review-avatar.a5 { background: linear-gradient(135deg, #059669, #34d399); }
+    .review-avatar.a6 { background: linear-gradient(135deg, #d97706, #fbbf24); }
+
+    .review-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .review-meta {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+    }
+
+    .review-stars span {
+      font-size: 16px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .review-platform {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(10,22,40,0.06);
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    .reviews-footer {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* === BLOG === */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .blog-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(10,22,40,0.06);
+      box-shadow: 0 4px 20px rgba(10,22,40,0.04);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(10,22,40,0.1);
+    }
+
+    .blog-card-img {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #E3F7FF, #dbeafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      overflow: hidden;
+    }
+
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-card-body {
+      padding: 28px 24px;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(4,55,153,0.07);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .blog-card-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .blog-card-body p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .blog-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--gray);
+      padding-top: 16px;
+      border-top: 1px solid rgba(10,22,40,0.06);
+    }
+
+    .blog-footer {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* === CTA === */
+    .cta-section {
+      padding: 96px 0;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #0A1628 0%, #043799 100%);
+      border-radius: 28px;
+      padding: 72px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(224,7,76,0.1);
+      pointer-events: none;
+    }
+
+    .cta-card h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-card p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background: var(--dark);
+      padding: 64px 0 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      margin-bottom: 16px;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-about {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      font-size: 16px;
+    }
+
+    .footer-social a:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* === ANIMATIONS === */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === MOBILE MENU === */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+
+    .header.scrolled .burger span {
+      background: var(--dark);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .hero-image-wrap {
+        height: 320px;
+      }
+
+      .hero-image-caption {
+        padding: 0 24px;
+      }
+
+      .features-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 0;
+      }
+
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.15); }
+
+      .blog-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .resorts-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .header-nav { display: none; }
+      .burger { display: flex; }
+    }
+
+    @media (max-width: 768px) {
+      .header { padding: 12px 20px; }
+      .header.scrolled { padding: 8px 20px; }
+
+      .hero-image-wrap { height: 260px; }
+
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+
+      .cta-card { padding: 48px 28px; }
+
+      .blog-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-item:last-child { border-bottom: none; }
+
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+
+      .section { padding: 64px 0; }
+
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 32px; }
+      .stat-value { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG FILTER (liquid glass) -->
+<svg class="svg-filters" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="liquidGlassFilter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <a href="/" class="header-logo">
+    <img src="img/krasski.svg" alt="KRASSKI">
+  </a>
+
+  <nav class="header-nav">
+    <a href="https://krasski.ru/price">Инструкторы</a>
+    <a href="https://krasski.ru/rent">Прокат</a>
+    <a href="https://krasski.ru/service">Ски-сервис</a>
+    <a href="https://krasski.ru/memo">Памятка гостям</a>
+    <a href="https://krasski.ru/discount">Акции</a>
+    <a href="https://krasski.ru/blog">Блог</a>
+  </nav>
+
+  <div class="header-right">
+    <div class="header-icons">
+      <a href="https://telegram.im/krasski_me" target="_blank" class="header-icon" title="Telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 7.028l-1.673 7.887c-.123.557-.453.693-.918.432l-2.5-1.842-1.207 1.16c-.133.134-.245.246-.502.246l.18-2.543 4.614-4.168c.2-.18-.044-.28-.31-.1L8.042 14.55l-2.46-.768c-.535-.168-.546-.535.112-.792l9.61-3.705c.447-.162.838.11.625.743z"/></svg>
+      </a>
+      <a href="https://vk.com/krasski_club" target="_blank" class="header-icon" title="ВКонтакте">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.033-1.01-1.49-.848-1.49.244v1.47c0 .38-.12.606-.934.606-1.297 0-2.728-.074-4.201-1.565C7.352 13.99 6.5 11.7 6.5 10.01c0-.432.105-.627.6-.627h1.74c.44 0 .608.198.776.664.855 2.47 2.292 4.637 2.885 4.637.22 0 .32-.1.32-.642V11.75c-.067-1.155-.677-1.251-.677-1.662 0-.2.163-.4.426-.4h2.742c.368 0 .495.195.495.633v3.398c0 .37.16.495.26.495.22 0 .4-.125.802-.537 1.24-1.393 2.125-3.53 2.125-3.53.117-.244.32-.472.762-.472h1.743c.524 0 .638.268.524.633-.218.994-2.333 4.004-2.333 4.004-.184.305-.25.44 0 .783.185.262.789.8 1.19 1.286.742.881 1.31 1.623 1.463 2.136.15.498-.105.75-.614.75z"/></svg>
+      </a>
+      <a href="tel:88005114790" class="header-icon" title="Позвонить">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </a>
+    </div>
+    <a href="tel:88005114790" class="header-phone">8 800 511-47-90</a>
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="container">
+      <div class="fade-up">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Сезон открыт · Красная Поляна
+        </div>
+        <h1>Встань на лыжи и сноуборд <span>легко!</span></h1>
+        <p class="hero-sub">Горнолыжная школа и прокат в Красной Поляне</p>
+        <div class="hero-actions">
+          <a href="https://krasski.ru/price" class="btn btn-primary">Хочу кататься</a>
+          <a href="https://yandex.ru/maps/org/krasski/129434639349/" target="_blank" class="btn btn-outline" style="border:2px solid rgba(10,22,40,0.2);color:var(--dark);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Мы на Яндекс.Картах
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image-wrap">
+    <img src="img/mainhero.webp" alt="Горнолыжная школа KRASSKI в Красной Поляне">
+    <div class="hero-image-caption">
+      <div class="hero-caption-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <strong>Красная Поляна</strong>, ул. Ачипсе, 1А
+      </div>
+      <div class="hero-caption-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <strong>Эстосадок</strong>, пер. Лунный, 7А
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-inner">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Более 300 инструкторов</h3>
+        <p>Подобрана команда и инструктора для каждой задачи: по уровню, по стилю, по запросу, по абонементу, покататься</p>
+        <div class="feature-price">Занятия по лыжам и борду от 2 900 ₽</div>
+        <a href="https://krasski.ru/price" class="feature-btn">Выбрать инструктора</a>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.1s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>200+ комплектов оборудования</h3>
+        <p>Лыжи и сноуборды ведущих брендов. Тюбинги, нарезные и лим. рабочие. Мужские, женские, детские подборки</p>
+        <div class="feature-price">Бесплатный трансфер и доставка</div>
+        <a href="https://krasski.ru/rent" class="feature-btn">Посмотреть снаряг проката</a>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:0.2s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3>Комбо: Инструкторы + прокат</h3>
+        <p>Если вам нужно всё сразу: и прокат, и инструктор, то у нас как раз есть варианты комбо-тарифов по всё</p>
+        <div class="feature-price">Вместе брать выгоднее</div>
+        <a href="https://krasski.ru/price" class="feature-btn">Оторваться по полной</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESORTS -->
+<section class="section" id="resorts">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Курорты</div>
+      <h2 class="section-title">Доставка оборудования и обучение<br>на всех курортах Красной Поляны</h2>
+    </div>
+    <div class="resorts-grid">
+      <a href="https://krasski.ru/price" class="resort-card fade-up">
+        <div class="resort-card-img">
+          <img src="img/kp.jpg" alt="Горнолыжный курорт Красная Поляна 960/540">
+        </div>
+        <div class="resort-content">
+          <h3>Красная Поляна</h3>
+          <p>Обучение и доставка на Красную Поляну 960 и Красную Поляну 540, в отели Rikoo, Noxotel, Marriott, Cortyard и другие отели курорта Красная Поляна (Бым, Торки, Город)</p>
+          <span class="resort-cta">Хочу кататься</span>
+        </div>
+      </a>
+      <a href="https://krasski.ru/price" class="resort-card fade-up" style="transition-delay:0.1s">
+        <div class="resort-card-img">
+          <img src="img/gazprom.jpg" alt="Горнолыжный курорт Газпром Альпика">
+        </div>
+        <div class="resort-content">
+          <h3>Газпром</h3>
+          <p>Обучение и доставка на все части курорта Газпром: на Пудгу и Аллиину, в отель Трала, Отель Поляна, Поляна 1389 и другие полугорские стойки на курорте Газпром</p>
+          <span class="resort-cta">Хочу кататься</span>
+        </div>
+      </a>
+      <a href="https://krasski.ru/price" class="resort-card fade-up" style="transition-delay:0.2s">
+        <div class="resort-card-img">
+          <img src="img/roza.jpg" alt="Горнолыжный курорт Роза Хутор">
+        </div>
+        <div class="resort-content">
+          <h3>Роза Хутор</h3>
+          <p>Обучение и доставка в Горную Олимпийскую Деревню (Роза Хутор 1100) и на нижнюю базу курорта: отели Redlison, Tulip, Rosa Springs, Ski Inn, Зребелли и др.</p>
+          <span class="resort-cta">Хочу кататься</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <div class="stat-value"><span>300+</span></div>
+        <div class="stat-label">инструкторов</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.1s">
+        <div class="stat-value"><span>200+</span></div>
+        <div class="stat-label">комплектов снаряжения</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.2s">
+        <div class="stat-value"><span>7</span></div>
+        <div class="stat-label">лет опыта</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.3s">
+        <div class="stat-value"><span>0 ₽</span></div>
+        <div class="stat-label">трансфер в сервис</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Наши локации</div>
+      <h2 class="section-title">Мы на Красной Поляне</h2>
+      <p class="section-desc">Два прокатных пункта и школа инструкторов. Бесплатный трансфер от отелей курортов.</p>
+    </div>
+    <div class="fade-up">
+      <div class="map-wrap">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=40.203736%2C43.689453&z=13&pt=40.207778%2C43.686944%2Cpmrdl1~40.195556%2C43.692222%2Cpmrdl2&mode=search"
+          title="Карта KRASSKI — Красная Поляна"
+          allow="fullscreen"
+          loading="lazy">
+        </iframe>
+      </div>
+      <div class="map-badges">
+        <a href="https://yandex.ru/maps/org/krasski/129434639349/" target="_blank" class="map-badge">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Красная Поляна, ул. Ачипсе, 1А
+        </a>
+        <a href="https://yandex.ru/maps/org/krasski/129434639349/" target="_blank" class="map-badge">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Эстосадок, пер. Лунный, 7А
+        </a>
+        <a href="https://yandex.ru/profile/129434639349" target="_blank" class="map-badge">
+          <svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Отзывы на Яндекс.Картах
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-header centered fade-up">
+      <div class="section-label">Отзывы</div>
+      <h2 class="section-title">Что говорят наши гости</h2>
+      <p class="section-desc">Более 1000 отзывов на Яндекс.Картах с оценкой 4.9 ⭐</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-header">
+          <div class="review-avatar a1">М</div>
+          <div>
+            <div class="review-name">Masha_Sin</div>
+            <div class="review-meta">Подписчица · 27 января 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Хороший прокат, отличный снаряг! Прокат: подбор снаряжения к-р разных размеров, всего около 30%, многие на уровне ски-альфа-про. Хемпус, командные горки, хорошие карты таблички. Наш инструктор KRASSKI — отдельный кайф!</p>
+        <div class="review-platform">
+          <span>📍</span> Красная Поляна, г. Эстосадок
+        </div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.1s">
+        <div class="review-header">
+          <div class="review-avatar a2">Д</div>
+          <div>
+            <div class="review-name">Диана Широнина</div>
+            <div class="review-meta">Подписчица · 25 декабря 2024</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Хейте за обслуживание! У них много про которые говорят много — лыжи и сноуборды отличные. Мы по классу начинающих. Помогли подобрать оборудование, всё объяснили, ни разу не пожалела что поехала с ними!</p>
+        <div class="review-platform">
+          <span>📍</span> Сочи, г. Эстосадок
+        </div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.2s">
+        <div class="review-header">
+          <div class="review-avatar a3">А</div>
+          <div>
+            <div class="review-name">Alexey Z</div>
+            <div class="review-meta">Подписчик · 3 января 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Отличный сервис! Брал всё с KRASSKI в этот сезон. Без очередей, удобно доставляют прямо к подъёмнику. Рекомендую всем, кто впервые едет на Красную Поляну — однозначно с ними!</p>
+        <div class="review-platform">
+          <span>📍</span> Краснодар, г. Эстосадок
+        </div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.05s">
+        <div class="review-header">
+          <div class="review-avatar a4">Е</div>
+          <div>
+            <div class="review-name">Екатерина Власова</div>
+            <div class="review-meta">Подписчица · 10 февраля 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Брали прокат на семью 4 человека + инструктора для детей. Всё прошло просто отлично! Дети в восторге, инструктор нашёл подход к обоим. Будем возвращаться каждый сезон.</p>
+        <div class="review-platform">
+          <span>📍</span> Москва, г. Роза Хутор
+        </div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.15s">
+        <div class="review-header">
+          <div class="review-avatar a5">С</div>
+          <div>
+            <div class="review-name">Сергей Николаев</div>
+            <div class="review-meta">Подписчик · 15 января 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Приехали первый раз на Газпром. Взяли комбо пакет — прокат + инструктор. За 3 дня научился уверенно кататься на синих трассах. Инструктор профессионал, всё доходчиво объяснил. Спасибо!</p>
+        <div class="review-platform">
+          <span>📍</span> СПб, г. Газпром Альпика
+        </div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:0.25s">
+        <div class="review-header">
+          <div class="review-avatar a6">О</div>
+          <div>
+            <div class="review-name">Ольга Кравченко</div>
+            <div class="review-meta">Подписчица · 28 декабря 2024</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+        </div>
+        <p class="review-text">Ски-сервис KRASSKI выручил нас в разгар сезона — заточили канты за 30 минут, привезли прямо к отелю. Цены честные, персонал приятный. Отдельное спасибо за бесплатный трансфер!</p>
+        <div class="review-platform">
+          <span>📍</span> Ростов-на-Дону, г. КП 960
+        </div>
+      </div>
+    </div>
+    <div class="reviews-footer fade-up">
+      <a href="https://yandex.ru/profile/129434639349" target="_blank" class="btn btn-outline" style="border:2px solid rgba(10,22,40,0.15);color:var(--dark);">
+        Больше отзывов на Яндекс.Отзывах
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="section" id="blog" style="background: var(--gray-light); padding:96px 0;">
+  <div class="container">
+    <div class="section-header centered fade-up">
+      <div class="section-label">Блог</div>
+      <h2 class="section-title">Полезно и интересно</h2>
+      <p class="section-desc">Советы, маршруты и гид по курортам Красной Поляны</p>
+    </div>
+    <div class="blog-grid">
+      <a href="https://krasski.ru/blog" class="blog-card fade-up">
+        <div class="blog-card-img">
+          <img src="img/group_ski_lessons_for_adults.jpeg" alt="Групповые занятия по лыжам">
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Инструкторы</span>
+          <h3>Как выбрать инструктора по горным лыжам для ребёнка</h3>
+          <p>Рассказываем на что обратить внимание при выборе инструктора и как подготовить ребёнка к первому занятию</p>
+          <div class="blog-card-footer">
+            <span>12 января 2025</span>
+            <span>5 мин чтения</span>
+          </div>
+        </div>
+      </a>
+      <a href="https://krasski.ru/blog" class="blog-card fade-up" style="transition-delay:0.1s">
+        <div class="blog-card-img" style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);">🎿</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Прокат</span>
+          <h3>Что лучше — брать своё снаряжение или в прокат?</h3>
+          <p>Разбираем все плюсы и минусы, считаем деньги и объясняем почему хороший прокат — это выгодно</p>
+          <div class="blog-card-footer">
+            <span>5 декабря 2024</span>
+            <span>4 мин чтения</span>
+          </div>
+        </div>
+      </a>
+      <a href="https://krasski.ru/blog" class="blog-card fade-up" style="transition-delay:0.2s">
+        <div class="blog-card-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🏔️</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Курорты</span>
+          <h3>Сравниваем курорты Красной Поляны: Роза Хутор vs Газпром</h3>
+          <p>Подробный гид по трассам, подъёмникам, ценам и апре-ски на двух главных курортах Сочи</p>
+          <div class="blog-card-footer">
+            <span>20 ноября 2024</span>
+            <span>7 мин чтения</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="blog-footer fade-up">
+      <a href="https://krasski.ru/blog" class="btn btn-blue">
+        Все статьи
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card fade-up">
+      <h2>Готовы к идеальному катанию?</h2>
+      <p>Подберём инструктора, снаряжение и отвезём в сервис — всё в одном месте. Звоните или пишите, первая консультация бесплатно.</p>
+      <div class="cta-actions">
+        <a href="tel:88005114790" class="btn btn-white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          8 800 511-47-90
+        </a>
+        <a href="https://wa.me/78005114790" target="_blank" class="btn btn-primary">Написать в WhatsApp</a>
+        <a href="https://krasski.ru/price" class="btn btn-outline-white">Выбрать инструктора</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="img/krasski.svg" alt="KRASSKI">
+        </div>
+        <p class="footer-about">Горнолыжная школа, прокат снаряжения и ски-сервис в Красной Поляне. Работаем с 2018 года.</p>
+        <div class="footer-social">
+          <a href="https://telegram.im/krasski_me" target="_blank" title="Telegram">✈️</a>
+          <a href="https://vk.com/krasski_club" target="_blank" title="ВКонтакте">В</a>
+          <a href="https://wa.me/78005114790" target="_blank" title="WhatsApp">W</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Услуги</h4>
+        <a href="https://krasski.ru/price">Инструкторы</a>
+        <a href="https://krasski.ru/rent">Прокат снаряжения</a>
+        <a href="https://krasski.ru/service">Ски-сервис</a>
+        <a href="https://krasski.ru/discount">Акции</a>
+      </div>
+      <div class="footer-col">
+        <h4>Курорты</h4>
+        <a href="https://krasski.ru/price">Красная Поляна 960</a>
+        <a href="https://krasski.ru/price">Красная Поляна 540</a>
+        <a href="https://krasski.ru/price">Газпром Альпика</a>
+        <a href="https://krasski.ru/price">Роза Хутор</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="https://krasski.ru/memo">Памятка гостям</a>
+        <a href="https://krasski.ru/blog">Блог</a>
+        <a href="https://yandex.ru/maps/org/krasski/129434639349/" target="_blank">На Яндекс.Картах</a>
+        <a href="tel:88005114790">8 800 511-47-90</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2018–2026 KRASSKI. Россия, Сочи, Эстосадок, пер. Лунный, 7</div>
+      <div class="footer-links">
+        <a href="https://krasski.ru/Public_agreement">Публичное соглашение</a>
+        <a href="https://krasski.ru/privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
